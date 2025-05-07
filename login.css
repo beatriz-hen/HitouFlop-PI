@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background:
+        linear-gradient(324deg, #0f2b3c 4%,   transparent 4%) -70px 43px,
+        linear-gradient( 36deg, #0f2b3c 4%,   transparent 4%) 30px 43px,
+        linear-gradient( 72deg, #e3d7bf 8.5%, transparent 8.5%) 30px 43px,
+        linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -70px 43px,
+        linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -70px 23px,
+        linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 30px 23px,
+
+        linear-gradient(324deg, #0f2b3c 4%,   transparent 4%) -20px 93px,
+        linear-gradient( 36deg, #0f2b3c 4%,   transparent 4%) 80px 93px,
+        linear-gradient( 72deg, #e3d7bf 8.5%, transparent 8.5%) 80px 93px,
+        linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -20px 93px,
+        linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -20px 73px,
+        linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 80px 73px;
+        background-color: #0f2b3c;
+        background-size: 100px 100px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #163f58;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-box {
+    text-align: center;
+}
+
+.logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.forgot-password {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #ffcb14;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    background-color: #ffcb14;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #ffcb14;
+}
