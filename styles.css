@@ -20,12 +20,13 @@ header {
 }
 
 .logo {
-  background-color: #ffcb14;
-  color: black;
-  border-radius: 50%;
-  padding: 10px 20px;
-  font-weight: bold;
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 50px; /* ou outro valor que se encaixe bem */
+  width: auto;
 }
 
 nav {
