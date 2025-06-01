@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -72,9 +74,10 @@
     <section>
       <h2>Melhores Avaliados</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
+          <a href="midia.html?id=1" class="card-link">
           <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
         </a>
+        
         <a href="midia.html?id=2" class="card-link">
           <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
         </a>
