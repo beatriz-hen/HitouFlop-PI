@@ -14,8 +14,8 @@
     <nav>
       <a href="index.html">Início</a>
       <a href="series.html">Séries</a>
-      <a href="filmes.html" class="active">Filmes</a>
-      <a href="animes.html">Animes</a>
+      <a href="filmes.html">Filmes</a>
+      <a href="animes.html" class="active">Animes</a>
       <a href="desenhos.html">Desenhos</a>
     </nav>
     <div class="icons" style="display: flex; align-items: center;">
@@ -58,7 +58,7 @@
   </header>
 
   <main>
-    <h1>Filmes</h1>
+    <h1>Animes</h1>
     <div class="genre-select">
       <label for="genre">Gênero</label>
       <select id="genre">
@@ -97,9 +97,7 @@
           <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
         </a>
         <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');">
-            <h1>teste</h1>
-          </div>
+          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
         </a>
         <a href="midia.html?id=3" class="card-link">
           <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
