@@ -1,6 +1,8 @@
 <?php require_once("conexaobd.php");?>
 
 <?php
+include("sessao_verifica.php");
+$idUsuario = $_SESSION['idUsuario'];
 
 $filmesMelhor = "SELECT * FROM tb_midia WHERE idTipo = 4 ORDER BY notaMedia desc limit 5";
 $rs_filmesMelhor  = mysqli_query($conn_bd_hf, $filmesMelhor ) or die($mysqli_error($conn_bd_hf));
@@ -40,11 +42,11 @@ $row_rs_filmesRecente  = mysqli_fetch_assoc($rs_filmesRecente);
       <img src="imagens/logo1.png" alt="Logo" />
     </div>
     <nav>
-      <a href="index.html">Início</a>
-      <a href="series.html">Séries</a>
-      <a href="filmes.html" class="active">Filmes</a>
-      <a href="animes.html">Animes</a>
-      <a href="desenhos.html">Desenhos</a>
+      <a href="index.php">Início</a>
+      <a href="series.php">Séries</a>
+      <a href="filmes.php" class="active">Filmes</a>
+      <a href="animes.php">Animes</a>
+      <a href="desenhos.php">Desenhos</a>
     </nav>
     <div class="icons" style="display: flex; align-items: center;">
   
@@ -56,7 +58,7 @@ $row_rs_filmesRecente  = mysqli_fetch_assoc($rs_filmesRecente);
     </svg>
   </button>
 
-  <a href="perfil.html" style="display: inline-block; margin-left: 15px;">
+  <a href="perfil.php?idUsuario=<?php echo($idUsuario)?>" style="display: inline-block; margin-left: 15px;">
     <svg width="24" height="24" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
     </svg>
@@ -101,7 +103,7 @@ $row_rs_filmesRecente  = mysqli_fetch_assoc($rs_filmesRecente);
       <h2>Melhores Avaliados</h2>
       <div class="series-row">
         <?php do {?>
-        <a href="midia.html?idMidia=<?php echo($row_rs_filmesMelhor["idMidia"]);?>" class="card-link">
+        <a href="midia.php?idMidia=<?php echo($row_rs_filmesMelhor["idMidia"]);?>" class="card-link">
         <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
           <h1><?php echo($row_rs_filmesMelhor["nomeMidia"]);?></h1>
           <p><?php echo($row_rs_filmesMelhor["notaMedia"]);?></p>
@@ -115,7 +117,7 @@ $row_rs_filmesRecente  = mysqli_fetch_assoc($rs_filmesRecente);
       <h2>Indicados</h2>
       <div class="series-row">
       <?php do {?>
-        <a href="midia.html?id=1" class="card-link">
+        <a href="midia.php?idMidia=<?php echo($row_rs_filmesIndicado["idMidia"]);?>" class="card-link">
           <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
           <h1><?php echo($row_rs_filmesIndicado["nomeMidia"]);?></h1>
           <p><?php echo($row_rs_filmesIndicado["notaMedia"]);?></p>
@@ -129,7 +131,7 @@ $row_rs_filmesRecente  = mysqli_fetch_assoc($rs_filmesRecente);
       <h2>Piores Avaliados</h2>
       <div class="series-row">
         <?php do {?>
-          <a href="midia.html?idMidia=<?php echo($row_rs_filmesPior["idMidia"]);?>" class="card-link">
+          <a href="midia.php?idMidia=<?php echo($row_rs_filmesPior["idMidia"]);?>" class="card-link">
           <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
           <h1><?php echo($row_rs_filmesPior["nomeMidia"]);?></h1>
           <p><?php echo($row_rs_filmesPior["notaMedia"]);?></p>
@@ -143,7 +145,7 @@ $row_rs_filmesRecente  = mysqli_fetch_assoc($rs_filmesRecente);
       <h2>Mais Recentes</h2>
       <div class="series-row">
         <?php do {?>
-        <a href="midia.html?idMidia=<?php echo($row_rs_filmesRecente["idMidia"]);?>" class="card-link">
+        <a href="midia.php?idMidia=<?php echo($row_rs_filmesRecente["idMidia"]);?>" class="card-link">
         <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
           <h1><?php echo($row_rs_filmesRecente["nomeMidia"]);?></h1>
           <p><?php echo($row_rs_filmesRecente["notaMedia"]);?></p>

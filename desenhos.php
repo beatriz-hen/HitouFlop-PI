@@ -1,4 +1,31 @@
+<?php require_once("conexaobd.php");?>
 
+<?php
+include("sessao_verifica.php");
+$idUsuario = $_SESSION['idUsuario'];
+
+$desenhosMelhor = "SELECT * FROM tb_midia WHERE idTipo = 2 ORDER BY notaMedia DESC LIMIT 5";
+$rs_desenhosMelhor = mysqli_query($conn_bd_hf, $desenhosMelhor) or die(mysqli_error($conn_bd_hf));
+$linhas_desenhosMelhor = mysqli_num_rows($rs_desenhosMelhor);
+$row_rs_desenhosMelhor = mysqli_fetch_assoc($rs_desenhosMelhor);
+
+
+$desenhosIndicado = "SELECT * FROM tb_midia WHERE idTipo = 2 ORDER BY visualizacao desc limit 5";
+$rs_desenhosIndicado   = mysqli_query($conn_bd_hf, $desenhosIndicado ) or die($mysqli_error($conn_bd_hf));
+$linhas_desenhosIndicado   = mysqli_num_rows($rs_desenhosIndicado);
+$row_rs_desenhosIndicado   = mysqli_fetch_assoc($rs_desenhosIndicado );
+
+$desenhosPior = "SELECT * FROM tb_midia WHERE idTipo = 2 ORDER BY notaMedia asc limit 5";
+$rs_desenhosPior  = mysqli_query($conn_bd_hf, $desenhosPior ) or die($mysqli_error($conn_bd_hf));
+$linhas_desenhosPior  = mysqli_num_rows($rs_desenhosPior );
+$row_rs_desenhosPior  = mysqli_fetch_assoc($rs_desenhosPior);
+
+$desenhosRecente = "SELECT * FROM tb_midia WHERE idTipo = 2 ORDER BY anoLancamento desc limit 5";
+$rs_desenhosRecente  = mysqli_query($conn_bd_hf, $desenhosRecente ) or die($mysqli_error($conn_bd_hf));
+$linhas_desenhosRecente  = mysqli_num_rows($rs_desenhosRecente );
+$row_rs_desenhosRecente  = mysqli_fetch_assoc($rs_desenhosRecente);
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -14,11 +41,11 @@
       <img src="imagens/logo1.png" alt="Logo" />
     </div>
     <nav>
-      <a href="index.html">Início</a>
-      <a href="series.html">Séries</a>
-      <a href="filmes.html">Filmes</a>
-      <a href="animes.html">Animes</a>
-      <a href="desenhos.html" class="active">Desenhos</a>
+      <a href="index.php">Início</a>
+      <a href="series.php">Séries</a>
+      <a href="filmes.php">Filmes</a>
+      <a href="animes.php">Animes</a>
+      <a href="desenhos.php" class="active">Desenhos</a>
     </nav>
     <div class="icons" style="display: flex; align-items: center;">
   
@@ -30,7 +57,7 @@
     </svg>
   </button>
 
-  <a href="perfil.html" style="display: inline-block; margin-left: 15px;">
+  <a href="perfil.php?idUsuario=<?php echo($idUsuario)?>" style="display: inline-block; margin-left: 15px;">
     <svg width="24" height="24" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
     </svg>
@@ -71,88 +98,59 @@
       </select>
     </div>
 
-    <section>
+     <section>
       <h2>Melhores Avaliados</h2>
       <div class="series-row">
-          <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+        <?php do {?>
+        <a href="midia.php?idMidia=<?php echo($row_rs_desenhosMelhor["idMidia"]);?>" class="card-link">
+        <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_desenhosMelhor["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_desenhosMelhor["notaMedia"]);?></p>
+          </div>
         </a>
-        
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+        <?php } while($row_rs_desenhosMelhor = mysqli_fetch_assoc($rs_desenhosMelhor));?>
       </div>
     </section>
 
-    <section>
+   <section>
       <h2>Indicados</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+      <?php do {?>
+        <a href="midia.php?idMidia=<?php echo($row_rs_desenhosPior["idMidia"]);?>" class="card-link">
+          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_desenhosIndicado["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_desenhosIndicado["notaMedia"]);?></p>
+          </div>   
         </a>
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+      <?php } while($row_rs_desenhosIndicado = mysqli_fetch_assoc($rs_desenhosIndicado));?>
       </div>
     </section>
 
     <section>
       <h2>Piores Avaliados</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+        <?php do {?>
+          <a href="midia.php?idMidia=<?php echo($row_rs_desenhosPior["idMidia"]);?>" class="card-link">
+          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_desenhosPior["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_desenhosPior["notaMedia"]);?></p>
+          </div>
         </a>
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+        <?php } while($row_rs_desenhosPior = mysqli_fetch_assoc($rs_desenhosPior));?>
       </div>
     </section>
 
     <section>
       <h2>Mais Recentes</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+        <?php do {?>
+        <a href="midia.php?idMidia=<?php echo($row_rs_desenhosRecente["idMidia"]);?>" class="card-link">
+        <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_desenhosRecente["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_desenhosRecente["notaMedia"]);?></p>
+          </div>
         </a>
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+        <?php } while($row_rs_desenhosRecente = mysqli_fetch_assoc($rs_desenhosRecente));?>
       </div>
     </section>
   </main>

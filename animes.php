@@ -1,3 +1,32 @@
+<?php require_once("conexaobd.php");?>
+
+<?php
+include("sessao_verifica.php");
+$idUsuario = $_SESSION['idUsuario'];
+
+$animesMelhor = "SELECT * FROM tb_midia WHERE idTipo = 3 ORDER BY notaMedia DESC LIMIT 5";
+$rs_animesMelhor = mysqli_query($conn_bd_hf, $animesMelhor) or die(mysqli_error($conn_bd_hf));
+$linhas_animesMelhor = mysqli_num_rows($rs_animesMelhor);
+$row_rs_animesMelhor = mysqli_fetch_assoc($rs_animesMelhor);
+
+
+$animesIndicado = "SELECT * FROM tb_midia WHERE idTipo = 3 ORDER BY visualizacao desc limit 5";
+$rs_animesIndicado   = mysqli_query($conn_bd_hf, $animesIndicado ) or die($mysqli_error($conn_bd_hf));
+$linhas_animesIndicado   = mysqli_num_rows($rs_animesIndicado);
+$row_rs_animesIndicado   = mysqli_fetch_assoc($rs_animesIndicado );
+
+$animesPior = "SELECT * FROM tb_midia WHERE idTipo = 3 ORDER BY notaMedia asc limit 5";
+$rs_animesPior  = mysqli_query($conn_bd_hf, $animesPior ) or die($mysqli_error($conn_bd_hf));
+$linhas_animesPior  = mysqli_num_rows($rs_animesPior );
+$row_rs_animesPior  = mysqli_fetch_assoc($rs_animesPior);
+
+$animesRecente = "SELECT * FROM tb_midia WHERE idTipo = 3 ORDER BY anoLancamento desc limit 5";
+$rs_animesRecente  = mysqli_query($conn_bd_hf, $animesRecente ) or die($mysqli_error($conn_bd_hf));
+$linhas_animesRecente  = mysqli_num_rows($rs_animesRecente );
+$row_rs_animesRecente  = mysqli_fetch_assoc($rs_animesRecente);
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,11 +41,11 @@
       <img src="imagens/logo1.png" alt="Logo" />
     </div>
     <nav>
-      <a href="index.html">Início</a>
-      <a href="series.html">Séries</a>
-      <a href="filmes.html">Filmes</a>
-      <a href="animes.html" class="active">Animes</a>
-      <a href="desenhos.html">Desenhos</a>
+      <a href="index.php">Início</a>
+      <a href="series.php">Séries</a>
+      <a href="filmes.php">Filmes</a>
+      <a href="animes.php" class="active">Animes</a>
+      <a href="desenhos.php">Desenhos</a>
     </nav>
     <div class="icons" style="display: flex; align-items: center;">
   
@@ -28,7 +57,7 @@
     </svg>
   </button>
 
-  <a href="perfil.html" style="display: inline-block; margin-left: 15px;">
+  <a href="perfil.php?idUsuario=<?php echo($idUsuario)?>" style="display: inline-block; margin-left: 15px;">
     <svg width="24" height="24" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
     </svg>
@@ -72,84 +101,56 @@
     <section>
       <h2>Melhores Avaliados</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+        <?php do {?>
+        <a href="midia.php?idMidia=<?php echo($row_rs_animesMelhor["idMidia"]);?>" class="card-link">
+        <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_animesMelhor["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_animesMelhor["notaMedia"]);?></p>
+          </div>
         </a>
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+        <?php } while($row_rs_animesMelhor = mysqli_fetch_assoc($rs_animesMelhor));?>
       </div>
     </section>
 
-    <section>
+   <section>
       <h2>Indicados</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+      <?php do {?>
+        <a href="midia.php?idMidia=<?php echo($row_rs_seriesPior["idMidia"]);?>" class="card-link">
+          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_animesIndicado["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_animesIndicado["notaMedia"]);?></p>
+          </div>   
         </a>
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+      <?php } while($row_rs_animesIndicado = mysqli_fetch_assoc($rs_animesIndicado));?>
       </div>
     </section>
 
     <section>
       <h2>Piores Avaliados</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+        <?php do {?>
+          <a href="midia.php?idMidia=<?php echo($row_rs_animesPior["idMidia"]);?>" class="card-link">
+          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_animesPior["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_animesPior["notaMedia"]);?></p>
+          </div>
         </a>
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+        <?php } while($row_rs_animesPior = mysqli_fetch_assoc($rs_animesPior));?>
       </div>
     </section>
 
     <section>
       <h2>Mais Recentes</h2>
       <div class="series-row">
-        <a href="midia.html?id=1" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme1.jpg');"></div>
+        <?php do {?>
+        <a href="midia.php?idMidia=<?php echo($row_rs_animesRecente["idMidia"]);?>" class="card-link">
+        <div class="card" style="background-image: url('imagens/capas/filme1.jpg');">
+          <h1><?php echo($row_rs_animesRecente["nomeMidia"]);?></h1>
+          <p><?php echo($row_rs_animesRecente["notaMedia"]);?></p>
+          </div>
         </a>
-        <a href="midia.html?id=2" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme2.jpg');"></div>
-        </a>
-        <a href="midia.html?id=3" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme3.jpg');"></div>
-        </a>
-        <a href="midia.html?id=4" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme4.jpg');"></div>
-        </a>
-        <a href="midia.html?id=5" class="card-link">
-          <div class="card" style="background-image: url('imagens/capas/filme5.jpg');"></div>
-        </a>
+        <?php } while($row_rs_animesRecente = mysqli_fetch_assoc($rs_animesRecente));?>
       </div>
     </section>
   </main>

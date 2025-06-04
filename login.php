@@ -16,7 +16,7 @@ $row_rs_login = mysqli_fetch_assoc($rs_login);
         $_SESSION['logado'] = true;
         $_SESSION['user'] = $username;
         $_SESSION['idUsuario'] = $row_rs_login['idUsuario'];
-        //header('Location: index.php');
+        header('Location: index.php');
         //exit;
 
     } else {

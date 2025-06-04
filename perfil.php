@@ -1,18 +1,22 @@
 <?php require_once("conexaobd.php");?>
  
 <?php
-$usuario = "SELECT * FROM tb_usuario WHERE idUsuario = '1'";
+
+ include("sessao_verifica.php");
+  $idUsuario = $_SESSION['idUsuario'];
+
+$usuario = "SELECT * FROM tb_usuario WHERE idUsuario = '$idUsuario'";
 $rs_usuario = mysqli_query($conn_bd_hf, $usuario) or die($mysqli_error($conn_bd_hf));
 $linhas_usuario = mysqli_num_rows($rs_usuario);
 $row_rs_usuario = mysqli_fetch_assoc($rs_usuario);
 
-$qtdMidias = "SELECT * FROM tb_lista WHERE idUsuario = '1'";
+$qtdMidias = "SELECT * FROM tb_lista WHERE idUsuario = '$idUsuario'";
 $rs_qtdMidias = mysqli_query($conn_bd_hf, $qtdMidias) or die($mysqli_error($conn_bd_hf));
 $linhas_qtdMidias = mysqli_num_rows($rs_qtdMidias);
 
 
 
-$lista = "SELECT * FROM tb_lista inner join tb_midia on tb_lista.idMidia = tb_midia.idMidia where idUsuario = 1 order by tb_midia.nomeMidia";
+$lista = "SELECT * FROM tb_lista inner join tb_midia on tb_lista.idMidia = tb_midia.idMidia where idUsuario = '$idUsuario' order by tb_midia.nomeMidia";
 $rs_lista = mysqli_query($conn_bd_hf, $lista) or die($mysqli_error($conn_bd_hf));
 $linhas_lista = mysqli_num_rows($rs_lista);
 $row_rs_lista = mysqli_fetch_assoc($rs_lista);
@@ -35,7 +39,7 @@ $row_rs_lista = mysqli_fetch_assoc($rs_lista);
       <img src="imagens/logo1.png" alt="Logo" />
     </div>
         <div class="icons">
-            <a href="perfil.html" style="display: inline-block; margin-left: 15px;">
+            <a href="perfil.php" style="display: inline-block; margin-left: 15px;">
                 <svg width="24" height="24" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
                 </svg>
@@ -113,13 +117,31 @@ $row_rs_lista = mysqli_fetch_assoc($rs_lista);
                 <p><?php echo($row_rs_lista['comentarioMidia'])?></p>
                 <hr style="background-color: #103846;">
                 <div class="acoes">
-                    <button style="border-color:<?php if($row_rs_lista['status'] == 'w'){echo('#ffcb14');} else {echo('white');}?>"><svg width="20" height="20" fill="<?php if($row_rs_lista['status'] == 'w'){echo('#ffcb14');} else {echo('white');}?>" viewBox="0 0 24 24">
+                    <button style="border-color:
+                    <?php
+                        if($row_rs_lista['status'] == 'w'){echo('#ffcb14');} else {echo('white');} 
+                            $usuario = $row_rs_usuario['idUsuario']; 
+                            //header("Location: perfil.php?idUsuario=$usuario");
+                    ?>" onclick="location.href='atualizarperfil.php?idUsuario=<?php echo($idUsuario)?>&status=w&idMidia=<?php echo($row_rs_lista['idMidia'])?>'" value="<?php echo($row_rs_lista['status'])?>">
+                     <svg width="20" height="20" fill="<?php if($row_rs_lista['status'] == 'w'){echo('#ffcb14');} else {echo('white');}?>" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
                         </svg></button>
-                    <button style="border-color: <?php if($row_rs_lista['status'] == 'p'){echo('#ffcb14');} else {echo('white');}?>"><svg width="20" height="20" fill="<?php if($row_rs_lista['status'] == 'p'){echo('#ffcb14');} else {echo('white');}?>" viewBox="0 0 24 24">
+                    <button style="border-color: 
+                    <?php
+                     if($row_rs_lista['status'] == 'p'){echo('#ffcb14');} else {echo('white');} 
+                        $usuario = $row_rs_usuario['idUsuario']; 
+                        //header("Location: perfil.php?idUsuario=$usuario");
+                    ?>" onclick="location.href='atualizarperfil.php?idUsuario=<?php echo($idUsuario)?>&status=p&idMidia=<?php echo($row_rs_lista['idMidia'])?>'">
+                        <svg width="20" height="20" fill="<?php if($row_rs_lista['status'] == 'p'){echo('#ffcb14');} else {echo('white');}?>" viewBox="0 0 24 24">
                             <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
                         </svg></button>
-                    <button style="border-color: <?php if($row_rs_lista['status'] == 'c'){echo('#ffcb14');} else {echo('white');}?>"><svg width="20" height="20" fill="<?php if($row_rs_lista['status'] == 'c'){echo('#ffcb14');} else {echo('white');}?>" viewBox="0 0 24 24">
+                    <button style="border-color: 
+                    <?php
+                     if($row_rs_lista['status'] == 'c'){echo('#ffcb14');} else {echo('white');} 
+                        $usuario = $row_rs_usuario['idUsuario'];
+                        //header("Location: perfil.php?idUsuario=$usuario");
+                    ?>" onclick="location.href='atualizarperfil.php?idUsuario=<?php echo($idUsuario)?>&status=c&idMidia=<?php echo($row_rs_lista['idMidia'])?>'">
+                    <svg width="20" height="20" fill="<?php if($row_rs_lista['status'] == 'c'){echo('#ffcb14');} else {echo('white');}?>" viewBox="0 0 24 24">
                             <path
                                 d="M2 21h4V9H2v12zM22 10c0-1.1-.9-2-2-2h-6.31l.95-4.57-.29-.7-1-1L8 9v10h10c.83 0 1.54-.5 1.84-1.22l2-5c.11-.23.16-.48.16-.78v-1z" />
                         </svg></button>
