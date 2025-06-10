@@ -25,6 +25,9 @@ $rs_animesRecente  = mysqli_query($conn_bd_hf, $animesRecente ) or die($mysqli_e
 $linhas_animesRecente  = mysqli_num_rows($rs_animesRecente );
 $row_rs_animesRecente  = mysqli_fetch_assoc($rs_animesRecente);
 
+$genero = "SELECT * FROM tb_genero";
+$rs_genero  = mysqli_query($conn_bd_hf, $genero) or die($mysqli_error($conn_bd_hf));
+$row_rs_genero  = mysqli_fetch_assoc($rs_genero);
 ?>
 
 <!DOCTYPE html>
@@ -88,16 +91,21 @@ $row_rs_animesRecente  = mysqli_fetch_assoc($rs_animesRecente);
 
   <main>
     <h1>Animes</h1>
+    <script type="text/javascript">
+function changeFunc($i) {
+        var valor = $i;
+        window.open(`filtro.php?value=${valor}`,'_self');
+        }
+  </script>
     <div class="genre-select">
       <label for="genre">Gênero</label>
-      <select id="genre">
-        <option value="all">Todos</option>
-        <option value="acao">Ação</option>
-        <option value="drama">Drama</option>
-        <option value="comedia">Comédia</option>
+      <select id="genre" onchange="changeFunc(value);">
+        <option value="0"></option>
+        <?php do{?>
+          <option value="<?php echo($row_rs_genero['idGenero'])?>"><?php echo($row_rs_genero['genero'])?></option>
+          <?php }while($row_rs_genero = mysqli_fetch_assoc($rs_genero));?>
       </select>
     </div>
-
     <section>
       <h2>Melhores Avaliados</h2>
       <div class="series-row">
